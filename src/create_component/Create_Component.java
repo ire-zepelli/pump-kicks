@@ -137,7 +137,4 @@ public class Create_Component {
 
         return panel;
     }
-
-    
-    
 }
