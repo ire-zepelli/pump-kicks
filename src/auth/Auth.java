@@ -6,8 +6,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import create_component.*;
+import database.DBactions;
 
 public class Auth {
     private JPanel mainPanel, authForm, logoImage, profileIcon, inputMarker_1, passwordIcon, inputMarker_2, googleIcon, facebookIcon, discordIcon;
@@ -87,11 +89,19 @@ public class Auth {
 
     private void buttonAction(JButton button){
         button.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Username: " + userField.getText());
-                System.out.println("Password: " + passwordField.getText());
+                String enteredUsername = userField.getText();
+                String enteredPassword = new String(passwordField.getPassword());
+
+                System.out.println(enteredUsername);
+                System.out.println(enteredPassword);
+                
+                try {
+                    System.out.println(DBactions.checkAuth(enteredUsername, enteredPassword));
+                } catch (ClassNotFoundException | SQLException e1) {
+                    System.out.println("Failed To Authenticate User.");
+                }
             }
         });
     }
