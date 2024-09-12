@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import env.env;
 
-public class DBactions {
+public class dbActions {
     protected static Connection conn = null;
     protected static String USERNAME = env.USERNAME;
     protected static String PASSWORD = env.PASSWORD;
@@ -35,6 +35,7 @@ public class DBactions {
                         password = resultSet.getString("password");
                     }
 
+                    //check authentication
                     if(username.equals(enteredUsername) && password.equals(enteredPassword)){
                         authenticated = true;
                     }
@@ -45,8 +46,28 @@ public class DBactions {
             statement.close();
         }
         testConnection.close();
-
-
         return authenticated;
+    }
+
+    public static void addUser(String username, String password) throws SQLException, ClassNotFoundException{
+        Connection testConnection = getDataBaseConnection();
+        
+        if(testConnection!= null){
+            Statement statement = testConnection.createStatement();
+            if(statement != null){
+                //check if user exists
+
+                //adds user
+                int condition = statement.executeUpdate("INSERT INTO users (username, password) values ('" + username + "','" + password + "');");
+                if(condition == 0){
+                    System.out.println("Failed to add user");
+                }
+                else if(condition > 0){
+                    System.out.println("User Added Succesfully");
+                }
+                statement.close();
+            }
+            testConnection.close();
+        }
     }
 }

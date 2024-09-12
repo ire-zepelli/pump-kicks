@@ -9,16 +9,17 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import create_component.*;
-import database.DBactions;
+import database.dbActions;
+import pages.PageControl;
 
-public class Auth {
+public class Login {
     private JPanel mainPanel, authForm, logoImage, profileIcon, inputMarker_1, passwordIcon, inputMarker_2, googleIcon, facebookIcon, discordIcon;
-    private JLabel loginText, usernameText, passwordText, signUpText;
-    private JButton loginBtn;
+    private JLabel loginText, usernameText, passwordText, loginWithText, signupText;
+    private JButton loginBtn, signupButton;
     private JTextField userField;
     private JPasswordField passwordField;
 
-    public Auth(){
+    public Login(){
         initialize();
     }
 
@@ -44,17 +45,25 @@ public class Auth {
         passwordField.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
         passwordField.setCaretColor(new Color(162,54,246));
 
-        loginBtn = Create_Component.Button(150,350,200,70,"HEllO","",0,0,0,0,0,0,0,0);
+        loginBtn = Create_Component.Button(150,350,200,70,"","",0,0,0,0,0,0,0,0);
         loginBtn.setOpaque(false);
         loginBtn.setFocusPainted(false);
         loginBtn.setFocusable(false);
         loginBtn.setContentAreaFilled(false);
-        buttonAction(loginBtn);
+        buttonAction(loginBtn, "login");
+
+        signupButton = Create_Component.Button(300,600,60,20,"", "", 0,0,0,0,0,0,0,0);
+        signupButton.setOpaque(false);
+        signupButton.setFocusPainted(false);
+        signupButton.setFocusable(false);
+        signupButton.setContentAreaFilled(false);
+        buttonAction(signupButton, "register");
 
         loginText = Create_Component.Label(225, 70, 100, 100, "Login", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
-        signUpText = Create_Component.Label(190, 370, 300, 200, "<html><p style=\"text-align:center\">Or<br/>Sign Up with</p></html>", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
+        loginWithText = Create_Component.Label(200, 370, 300, 200, "<html><p style=\"text-align:center\">Or<br/>Login with</p></html>", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
         usernameText = Create_Component.Label(50, 125, 100, 100, "Username", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
         passwordText = Create_Component.Label(50, 210, 100, 100, "Password", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
+        signupText = Create_Component.Label(140,555,300,100,"<html><p style=\"color:#511B7B;\">Don't have an account? <span style=\"color:#a236f6;\">Sign Up</span></p></html>", "Comic Sans", Font.PLAIN, 15, 255, 255, 255, 0, 0, 0);
 
         mainPanel.setPreferredSize(new Dimension(defaultWidth, defaultHeight));
         mainPanel.setBackground(new Color(120,67,230));
@@ -79,28 +88,45 @@ public class Auth {
         authForm.add(inputMarker_2);
         authForm.add(loginBtn);
         authForm.add(loginButton());
-        authForm.add(signUpText);
+        authForm.add(loginWithText);
         authForm.add(facebookIcon);
         authForm.add(googleIcon);
         authForm.add(discordIcon);
+        authForm.add(signupText);
+        authForm.add(signupButton);
 
         mainPanel.add(authForm);
     }
 
-    private void buttonAction(JButton button){
+    private void buttonAction(JButton button, String dispatch){
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String enteredUsername = userField.getText();
-                String enteredPassword = new String(passwordField.getPassword());
+                switch (dispatch) {
+                    case "login":
+                        String enteredUsername = userField.getText();
+                        String enteredPassword = new String(passwordField.getPassword());
+                        
+                        if(enteredUsername.isBlank() || enteredPassword.isBlank()){
+                            System.out.println("Fields are empty.");
+                            return;
+                        }
+                        
+                        try {
+                            System.out.println(dbActions.checkAuth(enteredUsername, enteredPassword));
+                        } catch (ClassNotFoundException | SQLException e1) {
+                            System.out.println("Failed To Authenticate User.");
+                        }   
+                        break;
 
-                System.out.println(enteredUsername);
-                System.out.println(enteredPassword);
-                
-                try {
-                    System.out.println(DBactions.checkAuth(enteredUsername, enteredPassword));
-                } catch (ClassNotFoundException | SQLException e1) {
-                    System.out.println("Failed To Authenticate User.");
+                    case "register":
+                        //redirect to register
+                        System.out.println("inside here");
+                        PageControl.showSignUp();
+                        break;
+
+                    default:
+                        break;
                 }
             }
         });

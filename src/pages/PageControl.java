@@ -8,7 +8,8 @@ public class PageControl {
     JFrame frame = new JFrame();
     static JPanel panelCont = new JPanel();
     static CardLayout pages = new CardLayout();
-    Auth auth = new Auth();
+    Login login = new Login();
+    static Signup signup;
 
 
     public PageControl(){
@@ -28,16 +29,23 @@ public class PageControl {
         frame.getContentPane().setBackground(new Color(20, 23, 29));
         
         panelCont.setLayout(pages);
-        panelCont.add(auth.getPanel(), "auth");
+        panelCont.add(login.getPanel(), "login");
         
         frame.add(panelCont);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
 
+        showSignUp();
     }
     
-    public static void showAuth(){
-        pages.show(panelCont, "auth");
+    public static void showLogIn(){
+        pages.show(panelCont, "login");
+    }
+
+    public static void showSignUp(){
+        signup = new Signup();
+        panelCont.add(signup.getPanel(), "signup");
+        pages.show(panelCont, "signup");
     }
 }

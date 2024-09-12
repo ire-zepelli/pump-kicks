@@ -89,11 +89,12 @@ public class Create_Component {
         }
 
         public static JLabel Label(int x, int y, int w, int h, String text , String fontFamily, int fontWeight, int fontSize, int r, int g, int b, int fr, int fg, int fb){
-        JLabel label = new JLabel(text);
+        JLabel label = new JLabel();
         label.setBounds(x, y,w, h);
         label.setBackground(new Color(r, g, b));
         label.setForeground(new Color(fr, fg, fb));
         label.setFont(new Font(fontFamily, fontWeight, fontSize));
+        label.setText(text);
         return label;
     }
 
