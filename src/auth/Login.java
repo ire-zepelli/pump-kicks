@@ -50,6 +50,7 @@ public class Login {
         loginBtn.setFocusPainted(false);
         loginBtn.setFocusable(false);
         loginBtn.setContentAreaFilled(false);
+        loginBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         buttonAction(loginBtn, "login");
 
         signupButton = Create_Component.Button(300,600,60,20,"", "", 0,0,0,0,0,0,0,0);
@@ -57,6 +58,7 @@ public class Login {
         signupButton.setFocusPainted(false);
         signupButton.setFocusable(false);
         signupButton.setContentAreaFilled(false);
+        signupButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         buttonAction(signupButton, "register");
 
         loginText = Create_Component.Label(225, 70, 100, 100, "Login", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
@@ -92,8 +94,8 @@ public class Login {
         authForm.add(facebookIcon);
         authForm.add(googleIcon);
         authForm.add(discordIcon);
-        authForm.add(signupText);
         authForm.add(signupButton);
+        authForm.add(signupText);
 
         mainPanel.add(authForm);
     }

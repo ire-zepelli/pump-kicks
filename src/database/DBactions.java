@@ -81,8 +81,12 @@ public class dbActions {
         ResultSet resultSet = statement.executeQuery("SELECT * from users WHERE username = '"+ username +"';");
 
         if(resultSet != null){
-            System.out.println("User already exist");
-            return true;
+            while (resultSet.next()) {
+                        if(resultSet.getString("username").isBlank()){
+                            return false;
+                        }
+                        return true;
+                }
         }
         return false;
     }

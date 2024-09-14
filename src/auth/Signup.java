@@ -55,12 +55,14 @@ public class Signup {
         signUpButton.setFocusPainted(false);
         signUpButton.setFocusable(false);
         signUpButton.setContentAreaFilled(false);
+        signUpButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         logInButton = Create_Component.Button(300,600,60,20,"", "", 0,0,0,0,0,0,0,0);
         logInButton.setOpaque(false);
         logInButton.setFocusPainted(false);
         logInButton.setFocusable(false);
         logInButton.setContentAreaFilled(false);
+        logInButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         signUpText = Create_Component.Label(215, 70, 100, 100, "Sign Up", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
         usernameText = Create_Component.Label(50, 125, 100, 100, "Username", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
@@ -91,8 +93,8 @@ public class Signup {
         authForm.add(inputMarker_3);
         authForm.add(signUpButton);
         authForm.add(signUpButton());
-        authForm.add(logInText);
         authForm.add(logInButton);
+        authForm.add(logInText);
         
         mainPanel.add(authForm);
 
