@@ -49,25 +49,43 @@ public class dbActions {
         return authenticated;
     }
 
-    public static void addUser(String username, String password) throws SQLException, ClassNotFoundException{
+    public static boolean addUser(String username, String password) throws SQLException, ClassNotFoundException{
         Connection testConnection = getDataBaseConnection();
         
         if(testConnection!= null){
             Statement statement = testConnection.createStatement();
             if(statement != null){
                 //check if user exists
+                if(doesUserExist(username, statement)){
+                    return false;
+                }
 
                 //adds user
                 int condition = statement.executeUpdate("INSERT INTO users (username, password) values ('" + username + "','" + password + "');");
                 if(condition == 0){
                     System.out.println("Failed to add user");
+                    return false;
                 }
                 else if(condition > 0){
                     System.out.println("User Added Succesfully");
+                    return true;
                 }
                 statement.close();
             }
             testConnection.close();
         }
+        return false;
     }
+
+    public static boolean doesUserExist(String username, Statement statement) throws SQLException, ClassNotFoundException{
+        ResultSet resultSet = statement.executeQuery("SELECT * from users WHERE username = '"+ username +"';");
+
+        if(resultSet != null){
+            System.out.println("User already exist");
+            return true;
+        }
+        return false;
+    }
+
+
 }

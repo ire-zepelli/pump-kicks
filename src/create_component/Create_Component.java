@@ -71,7 +71,6 @@ public class Create_Component {
             return outline;
         }
         public static JPanel Modal(int score){
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             JPanel modal;
             JLabel title, desc;
             title = Label(160,0, 300, 100, "Your Score:", "Arial", Font.PLAIN, 30, 0,0,0,255,255,255);

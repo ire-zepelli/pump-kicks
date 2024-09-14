@@ -113,7 +113,9 @@ public class Login {
                         }
                         
                         try {
-                            System.out.println(dbActions.checkAuth(enteredUsername, enteredPassword));
+                            if(dbActions.checkAuth(enteredUsername, enteredPassword)){
+                                PageControl.showHome();
+                            }
                         } catch (ClassNotFoundException | SQLException e1) {
                             System.out.println("Failed To Authenticate User.");
                         }   

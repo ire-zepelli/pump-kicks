@@ -3,6 +3,7 @@ package pages;
 import javax.swing.*;
 import java.awt.*;
 import auth.*;
+import home.*;
 
 public class PageControl {
     JFrame frame = new JFrame();
@@ -10,6 +11,7 @@ public class PageControl {
     static CardLayout pages = new CardLayout();
     Login login = new Login();
     static Signup signup;
+    static Home home;
 
 
     public PageControl(){
@@ -36,7 +38,7 @@ public class PageControl {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
 
-        showSignUp();
+        showHome();
     }
     
     public static void showLogIn(){
@@ -47,5 +49,11 @@ public class PageControl {
         signup = new Signup();
         panelCont.add(signup.getPanel(), "signup");
         pages.show(panelCont, "signup");
+    }
+
+    public static void showHome(){
+        home = new Home();
+        panelCont.add(home.getPanel(), "home");
+        pages.show(panelCont, "home");
     }
 }

@@ -3,7 +3,6 @@ package auth;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -63,7 +62,7 @@ public class Signup {
         logInButton.setFocusable(false);
         logInButton.setContentAreaFilled(false);
         
-        signUpText = Create_Component.Label(225, 70, 100, 100, "Sign Up", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
+        signUpText = Create_Component.Label(215, 70, 100, 100, "Sign Up", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
         usernameText = Create_Component.Label(50, 125, 100, 100, "Username", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
         passwordText = Create_Component.Label(50, 210, 100, 100, "Password", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
         confirmPasswordText = Create_Component.Label(50, 295, 200, 100, "Confirm Password", "Comic Sans", Font.BOLD, 20, 255, 255, 255, 162, 54,246 );
@@ -118,7 +117,7 @@ public class Signup {
                         passwordText.setForeground(Color.red);
                         confirmPasswordText.setForeground(Color.red);
 
-                        Timer timer = new Timer(500, new ActionListener() {
+                        Timer invalidPassword = new Timer(500, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 passwordText.setForeground(new Color(162,52,246));
@@ -127,14 +126,30 @@ public class Signup {
                                 confirmPasswordField.setText("");
                             }
                         });
-                        timer.setRepeats(false);
-                        timer.start();
+                        invalidPassword.setRepeats(false);
+                        invalidPassword.start();
+
                         return;
                     }
 
                         try {
-                            dbActions.addUser(enteredUsername, enteredPassword);
-                            PageControl.showLogIn();
+                            if(dbActions.addUser(enteredUsername, enteredPassword)){
+                                PageControl.showLogIn();
+                                return;
+                            }
+                            usernameText.setForeground(Color.red);
+                            userField.setText("Username Already Exist");
+                            userField.setForeground(Color.red);
+                            Timer invalidUser = new Timer(500, new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e){
+                                    usernameText.setForeground(new Color(162,52,246));
+                                    userField.setText("");
+                                    userField.setForeground(new Color(162,52,246));
+                                }
+                            });
+                            invalidUser.setRepeats(false);
+                            invalidUser.start();
                         } catch (ClassNotFoundException | SQLException e1) {
                             System.out.println("Failed to Add User.");
                         }
