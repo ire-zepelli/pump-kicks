@@ -5,9 +5,9 @@ import java.awt.*;
 import create_component.*;
 
 public class Home {
-   private JPanel mainPanel, headerPanel, logoImage, contentPanel, shoesBanner, bannerText, navMarker;
+   private JPanel mainPanel, headerPanel, logoImage, contentPanel, shoesBanner, bannerText, navMarker, featured1, featured2, featured3, cartIcon1, cartIcon2, cartIcon3;
    private JButton homeButton, productsButton, cartButton;
-   private JLabel navText;
+   private JLabel navText, copyrightText;
    private JScrollPane scrollPane;
    
    public Home(){
@@ -23,23 +23,37 @@ public class Home {
         mainPanel.setLayout(null);
 
         navText = Create_Component.Label(50, 0, 100, 30, "Home", "Comic Sans", Font.BOLD, 20, 249,249, 237, 161, 52, 246);
+        copyrightText = Create_Component.Label(width/2-350/2,height+250, 350, 30, "Copyright © 2024 - Benedict Avenido", "Comic Sans", Font.ITALIC, 20, 249,249, 237, 161, 52, 246);
 
         contentPanel = new JPanel();
-        contentPanel.setPreferredSize(new Dimension(width-20, height));
+        contentPanel.setPreferredSize(new Dimension(width-20, height+300));
         contentPanel.setBackground(new Color(246,246,237));
         contentPanel.setLayout(null);
 
         scrollPane = new JScrollPane(contentPanel);
         scrollPane.setBounds(0,120, width+2, height-120);;
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-        shoesBanner = Create_Component.ImagePanel("public/shoes-banner.png", 0,50,width-16, 450);
+        shoesBanner = Create_Component.ImagePanel("public/shoes-banner.png", 0,50,width, 450);
         bannerText = Create_Component.ImagePanel("public/banner-text.png", 20, 80, 427, 369);
+        featured1 = Create_Component.ImagePanel("public/featured-shoes-1.jpg", 200,600, 300,400);
+        featured2 = Create_Component.ImagePanel("public/featured-shoes-2.jpg", 600, 600, 300,400);
+        featured3 = Create_Component.ImagePanel("public/featured-shoes-3.jpg", 1000, 600, 300,400);
+        cartIcon1 = Create_Component.ImagePanel("public/icons/cart-icon.png", 445,605,50,50);
+        cartIcon2 = Create_Component.ImagePanel("public/icons/cart-icon.png", 845,605,50,50);
+        cartIcon3 = Create_Component.ImagePanel("public/icons/cart-icon.png", 1245,605,50,50);
 
         contentPanel.add(navText);
         contentPanel.add(bannerText);
         contentPanel.add(shoesBanner);
+        contentPanel.add(cartIcon1);
+        contentPanel.add(featured1);
+        contentPanel.add(cartIcon2);
+        contentPanel.add(featured2);
+        contentPanel.add(cartIcon3);
+        contentPanel.add(featured3);
+        contentPanel.add(copyrightText);
 
         mainPanel.setBackground(new Color(246, 246, 237));
 
@@ -63,8 +77,8 @@ public class Home {
     logoImage = Create_Component.ImagePanel("public/Pumped.png", 50, 0, 250, 120);
 
     homeButton = Create_Component.Button(350,45,100,30,"HOME", "Comic Sans", Font.BOLD, 20, 255,255,255, 161,52,246);
-    productsButton = Create_Component.Button(500,45,150,30,"PRODUCTS", "Comic Sans", Font.BOLD, 20, 255,255,255, 161,52,246);
-    cartButton = Create_Component.Button(700,45,150,30,"MY CART", "Comic Sans", Font.BOLD, 20, 255,255,255, 161,52,246);
+    productsButton = Create_Component.Button(480,45,150,30,"PRODUCTS", "Comic Sans", Font.BOLD, 20, 255,255,255, 161,52,246);
+    cartButton = Create_Component.Button(630,45,150,30,"MY CART", "Comic Sans", Font.BOLD, 20, 255,255,255, 161,52,246);
 
     homeButton.setOpaque(false);
     homeButton.setFocusPainted(false);

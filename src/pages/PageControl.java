@@ -38,7 +38,6 @@ public class PageControl {
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
 
-        showHome();
     }
     
     public static void showLogIn(){
